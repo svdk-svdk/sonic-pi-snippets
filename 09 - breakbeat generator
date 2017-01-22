@@ -1,0 +1,12 @@
+live_loop :breakbeatgenerarstor do
+  #stop
+  tick
+  use_random_seed (stretch [99], 2, [40], 2, [666], 4).look
+  8.times do
+    sample :elec_hi_snare if one_in(3)
+    sample :drum_cymbal_closed if one_in(4)
+    sample :drum_cymbal_pedal if one_in(6)
+    sample :bd_haus if one_in(2)
+    sleep 0.125
+  end
+end
