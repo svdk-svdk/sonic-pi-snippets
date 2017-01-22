@@ -1,0 +1,20 @@
+live_loop :acidbassline do
+  with_fx :level, amp: 0.3 do
+    #stop
+    tick
+    notelist = (stretch [:e3, :e4], 32).look
+    
+    phasevar = (line 0.125, 1, steps: 256).look
+    freqvar  = (line 40, 65, steps: 64).mirror.look
+    with_fx :reverb do
+      with_fx :band_eq, db: 10, freq: freqvar, res: rrand(0.8, 0.9) do
+        with_fx :wobble, phase: phasevar, mix: 0.5 do
+          use_synth :tb303
+          play chord((stretch [:e4, :c4], 32).look, :minor).look, release: 0.125, cutoff: freqvar*2, pan: (line -0.5, 0.5, steps: 32).mirror.look, amp: 0.2
+          play chord((stretch [notelist, :c3], 32).look, :minor).look, release: 0.125, cutoff: freqvar*2, pan: (line -0.5, 0.5, steps: 32).mirror.look, amp: 0.2
+          sleep 0.125
+        end
+      end
+    end
+  end
+end
